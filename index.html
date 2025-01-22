@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Record</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style-type: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #17153B;
+        }
+
+        .space {
+            height: 20%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .space h4 {
+            height: 30%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.4rem;
+            background-color: #17153B;
+        }
+
+        .space .bottom {
+            height: 70%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #433D8B;
+        }
+
+        .space .bottom .controls {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 40%;
+            height: 100%;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .space .bottom .controls div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0.5rem 2rem;
+            background-color: #C8ACD6;
+        }
+
+        .space .bottom .controls div button {
+            background-color: black;
+            padding: 0.8rem;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .space .bottom .controls div button:hover {
+            scale: 1.2;
+        }
+
+        .space .bottom .controls div p {
+            padding: 0.8rem;
+            color: black;
+            font-weight: bold;
+            /* background-color: red; */
+        }
+
+        .space .bottom .result {
+            width: 60%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: white;
+            /* background-color: yellowgreen; */
+        }
+
+        .reset {
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 0.6rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        @media only screen and (max-device-width: 480px) {
+            body{
+                height: auto;
+            }
+            .space {
+                height: 80%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .space h4 {
+                height: 15%;
+                width: 100%;
+                font-size: 1.2rem;
+            }
+
+            .space .bottom {
+                height: 85%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .space .bottom .controls {
+                height: 70%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                font-size: 0.6rem;
+            }
+
+            .space .bottom .controls div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #C8ACD6;
+            }
+
+            .space .bottom .controls div button {
+                background-color: black;
+                color: white;
+                border: none;
+                font-size: 0.6rem;
+            }
+
+            .space .bottom .controls div p {
+                color: black;
+                font-weight: bold;
+                /* background-color: red; */
+            }
+
+            .space .bottom .result {
+                width: 100%;
+                height: 30%;
+                font-size: 0.8rem;
+                padding: 0.4rem 0;
+            }
+
+            .reset {
+                font-size: 0.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="space">
+        <h4>Physics</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.PhysicsLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.PhysicsLecPresent()">P</button>
+                </div>
+
+                <div class="T">
+                    <button class="present" onclick="attendanceFunctions.PhysicsTutAbsent()">A</button>
+                    <p>Tutorial</p>
+                    <button class="absent" onclick="attendanceFunctions.PhysicsTutPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.PhysicsLabAbsent()">A</button>
+                    <p>Practical</p>
+                    <button class="absent" onclick="attendanceFunctions.PhysicsLabPresent()">P</button>
+                </div>
+            </div>
+            <div class="physicsResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>Engineering Drawing</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.DrawingLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.DrawingLecPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.DrawingTutAbsent()">A</button>
+                    <p>Tutorial</p>
+                    <button class="absent" onclick="attendanceFunctions.DrawingTutPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.DrawingLabAbsent()">A</button>
+                    <p>Practical</p>
+                    <button class="absent" onclick="attendanceFunctions.DrawingLabPresent()">P</button>
+                </div>
+            </div>
+            <div class="EDResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>Maths</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.MathsLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.MathsLecPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.MathsTutAbsent()">A</button>
+                    <p>Tutorial</p>
+                    <button class="absent" onclick="attendanceFunctions.MathsTutPresent()">P</button>
+                </div>
+            </div>
+            <div class="MathsResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>Manufacturing Process</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.manproLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.manproLecPresent()">P</button>
+                </div>
+
+                <div class="T">
+                    <button class="present" onclick="attendanceFunctions.manproLabAbsent()">A</button>
+                    <p>Practical</p>
+                    <button class="absent" onclick="attendanceFunctions.manproLabPresent()">P</button>
+                </div>
+            </div>
+            <div class="manproResult result"></div>
+        </div>
+    </div>
+
+    <div class="space">
+        <h4>ProfComm</h4>
+        <div class="bottom">
+            <div class="controls">
+                <div class="L">
+                    <button class="present" onclick="attendanceFunctions.ProfCommLecAbsent()">A</button>
+                    <p>Lecture</p>
+                    <button class="absent" onclick="attendanceFunctions.ProfCommLecPresent()">P</button>
+                </div>
+
+                <div class="P">
+                    <button class="present" onclick="attendanceFunctions.ProfCommLabAbsent()">A</button>
+                    <p>Practical</p>
+                    <button class="absent" onclick="attendanceFunctions.ProfCommLabPresent()">P</button>
+                </div>
+            </div>
+            <div class="ProfCommResult result"></div>
+        </div>
+    </div>
+    <button class="reset">Reset</button>
+
+
+
+    <script>
+        let physicsResult = document.querySelector(".physicsResult");
+        let EDResult = document.querySelector(".EDResult");
+        let MathsResult = document.querySelector(".MathsResult");
+        let manproResult = document.querySelector(".manproResult");
+        let ProfCommResult = document.querySelector(".ProfCommResult");
+
+        let PhysicsAttended = parseFloat(localStorage.getItem("PhysicsAttended")) || 0;
+        let PhysicsTotal = parseFloat(localStorage.getItem("PhysicsTotal")) || 0;
+        let percentagePhysics = ((PhysicsAttended / PhysicsTotal) * 100).toFixed(2) || 0;
+
+        let EDAttended = parseFloat(localStorage.getItem("EDAttended")) || 0;
+        let EDTotal = parseFloat(localStorage.getItem("EDTotal")) || 0;
+        let EDpercentage = ((EDAttended / EDTotal) * 100).toFixed(2) || 0;
+
+        let MathsAttended = parseFloat(localStorage.getItem("MathsAttended")) || 0;
+        let MathsTotal = parseFloat(localStorage.getItem("MathsTotal")) || 0;
+        let percentageMaths = ((MathsAttended / MathsTotal) * 100).toFixed(2) || 0;
+
+        let ManproAttended = parseFloat(localStorage.getItem("ManproAttended")) || 0;
+        let ManproTotal = parseFloat(localStorage.getItem("ManproTotal")) || 0;
+        let ManproPercentage = ((ManproAttended / ManproTotal) * 100).toFixed(2) || 0;
+
+        let ProfCommAttended = parseFloat(localStorage.getItem("ProfCommAttended")) || 0;
+        let ProfCommTotal = parseFloat(localStorage.getItem("ProfCommTotal")) || 0;
+        let ProfCommPercentage = ((ProfCommAttended / ProfCommTotal) * 100).toFixed(2) || 0;
+
+        const updateLocalStorage = () => {
+            localStorage.setItem("PhysicsAttended", PhysicsAttended);
+            localStorage.setItem("PhysicsTotal", PhysicsTotal);
+            localStorage.setItem("EDAttended", EDAttended);
+            localStorage.setItem("EDTotal", EDTotal);
+            localStorage.setItem("MathsAttended", MathsAttended);
+            localStorage.setItem("MathsTotal", MathsTotal);
+            localStorage.setItem("ManproAttended", ManproAttended);
+            localStorage.setItem("ManproTotal", ManproTotal);
+            localStorage.setItem("ProfCommAttended", ProfCommAttended);
+            localStorage.setItem("ProfCommTotal", ProfCommTotal);
+        };
+
+        const updateResultDisplay = () => {
+            physicsResult.innerHTML = `Attendance is ${PhysicsAttended} / ${PhysicsTotal} corresponding to ${percentagePhysics}`;
+            EDResult.innerHTML = `Attendance is ${EDAttended} / ${EDTotal} corresponding to ${EDpercentage}`;
+            MathsResult.innerHTML = `Attendance is ${MathsAttended} / ${MathsTotal} corresponding to ${percentageMaths}`;
+            manproResult.innerHTML = `Attendance is ${ManproAttended} / ${ManproTotal} corresponding to ${ManproPercentage}`;
+            ProfCommResult.innerHTML = `Attendance is ${ProfCommAttended} / ${ProfCommTotal} corresponding to ${ProfCommPercentage}`;
+        };
+
+        const updatePercentage = () => {
+            percentagePhysics = ((PhysicsAttended / PhysicsTotal) * 100).toFixed(2) || 0;
+            EDpercentage = ((EDAttended / EDTotal) * 100).toFixed(2) || 0;
+            percentageMaths = ((MathsAttended / MathsTotal) * 100).toFixed(2) || 0;
+            ManproPercentage = ((ManproAttended / ManproTotal) * 100).toFixed(2) || 0;
+            ProfCommPercentage = ((ProfCommAttended / ProfCommTotal) * 100).toFixed(2) || 0
+        };
+
+        const attendanceFunctions = {
+            PhysicsLecPresent: () => {
+                PhysicsAttended++;
+                PhysicsTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            PhysicsLecAbsent: () => {
+                PhysicsTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            PhysicsTutPresent: () => {
+                PhysicsAttended += 0.5;
+                PhysicsTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            PhysicsTutAbsent: () => {
+                PhysicsTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            PhysicsLabPresent: () => {
+                PhysicsAttended += 2;
+                PhysicsTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            PhysicsLabAbsent: () => {
+                PhysicsTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            DrawingLecPresent: () => {
+                EDAttended++;
+                EDTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            DrawingLecAbsent: () => {
+                EDTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            DrawingTutPresent: () => {
+                EDAttended += 0.5;
+                EDTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            DrawingTutAbsent: () => {
+                EDTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            DrawingLabPresent: () => {
+                EDAttended += 2;
+                EDTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            DrawingLabAbsent: () => {
+                EDTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            MathsLecPresent: () => {
+                MathsAttended++;
+                MathsTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            MathsLecAbsent: () => {
+                MathsTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            MathsTutPresent: () => {
+                MathsAttended += 0.5;
+                MathsTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            MathsTutAbsent: () => {
+                MathsTotal += 0.5;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            manproLecPresent: () => {
+                ManproAttended++;
+                ManproTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            manproLecAbsent: () => {
+                ManproTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            manproLabPresent: () => {
+                ManproAttended += 2;
+                ManproTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            manproLabAbsent: () => {
+                ManproTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            ProfCommLecPresent: () => {
+                ProfCommAttended++;
+                ProfCommTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            ProfCommLecAbsent: () => {
+                ProfCommTotal++;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            ProfCommLabPresent: () => {
+                ProfCommAttended += 2;
+                ProfCommTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+            ProfCommLabAbsent: () => {
+                ProfCommTotal += 2;
+                updatePercentage();
+                updateResultDisplay();
+                updateLocalStorage();
+            },
+        };
+
+        updateResultDisplay();
+
+        document.querySelector(".reset").addEventListener("click", function () {
+            localStorage.clear();
+            console.log(PhysicsAttended);
+            PhysicsAttended = 0;
+            PhysicsTotal = 0;
+            EDAttended = 0;
+            EDTotal = 0;
+            MathsAttended = 0;
+            MathsTotal = 0;
+            ManproAttended = 0;
+            ManproAttendedTotal = 0;
+            ProfCommAttended = 0;
+            ProfCommTotal = 0;
+            updatePercentage();
+            updateResultDisplay();
+        })
+    </script>
+</body>
+
+</html>
